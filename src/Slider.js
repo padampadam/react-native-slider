@@ -180,6 +180,7 @@ export default class Slider extends PureComponent {
     thumbTouchSize: { width: 40, height: 40 },
     debugTouchArea: false,
     animationType: 'timing',
+    vertical: false
   };
 
   state = {
@@ -418,7 +419,8 @@ export default class Slider extends PureComponent {
 
   _getValue = (gestureState: Object) => {
     const length = this.state.containerSize.width - this.state.thumbSize.width;
-    const thumbLeft = this._previousLeft + gestureState.dx;
+    var distance = this.props.vertical ? gestureState.dy : gestureState.dx;
+    var thumbLeft = this._previousLeft + distance;
 
     const nonRtlRatio = thumbLeft / length;
     const ratio = I18nManager.isRTL ? 1 - nonRtlRatio : nonRtlRatio;
